@@ -1,14 +1,6 @@
 #ifndef PATH_PLANNING_CAR_H
 #define PATH_PLANNING_CAR_H
 
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <math.h>
-#include <vector>
-#include <functional>
-#include <map>
-
 using namespace std;
 
 

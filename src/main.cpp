@@ -266,7 +266,7 @@ int main() {
                 Car srrndng_car = Car((int) sf[0], sf[1], sf[2], sf[3], sf[4], sf[5], sf[6]);
                 int srrndng_car_lane = srrndng_car.lane();
                 double srrndng_car_spd = srrndng_car.speed();
-                double srrndng_car_s_in_t = srrndng_car.s_in_t(prev_path_size * SYSTEM_SAMPLING_DT);
+                double calibr_srrndng_car_s = srrndng_car.s_in_t(prev_path_size * SYSTEM_SAMPLING_DT);
 
                 // Skip if the surrounding car is in the opposite direction
                 if (srrndng_car_lane < 0) {
@@ -277,21 +277,20 @@ int main() {
                 if (srrndng_car_lane == ego_car_lane) {
                   // Check if surrounding car ahead in the same lane is close to ego car
                   close_to_srrndng_car_ahead |=
-                      srrndng_car_s_in_t > calibr_ego_car_s &&
-                      srrndng_car_s_in_t - calibr_ego_car_s < PREDICT_HORIZON_IN_DIST;
+                      calibr_srrndng_car_s > calibr_ego_car_s &&
+                      calibr_srrndng_car_s - calibr_ego_car_s < CAR_SEPARATION;
                 } else if (srrndng_car_lane - ego_car_lane == -1) {
                   // Check if surrounding car on the left lane is close to ego car
                   close_to_srrndng_car_lt |=
-                      calibr_ego_car_s - PREDICT_HORIZON_IN_DIST < srrndng_car_s_in_t &&
-                      calibr_ego_car_s + PREDICT_HORIZON_IN_DIST > srrndng_car_s_in_t;
+                      calibr_ego_car_s - CAR_SEPARATION < calibr_srrndng_car_s &&
+                      calibr_ego_car_s + CAR_SEPARATION > calibr_srrndng_car_s;
                 } else if (srrndng_car_lane - ego_car_lane == 1) {
                   // Check if surrounding car on the right lane is close to ego car
                   close_to_srrndng_car_rt |=
-                      calibr_ego_car_s - PREDICT_HORIZON_IN_DIST < srrndng_car_s_in_t &&
-                      calibr_ego_car_s + PREDICT_HORIZON_IN_DIST > srrndng_car_s_in_t;
+                      calibr_ego_car_s - CAR_SEPARATION < calibr_srrndng_car_s &&
+                      calibr_ego_car_s + CAR_SEPARATION > calibr_srrndng_car_s;
                 }
               }
-
 
 
               /*****************************************************************************
