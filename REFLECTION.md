@@ -35,3 +35,5 @@ Based on the path curve acquired in previous step, the discrete path will be gen
 
 ### Other reflections
 I tried the PTG approach in the beginning. However, in the JMT step, the estimation of end states becomes critical to the smoothness/comfortness of the path. A bad estimation of end states will give a smooth curve on paper but not necessarily smooth accelerations when the ego car is driven along the path. Therefore the key step is actually not the PTG path generation, but end state estimation. However, if we are able to do a good estimation on the end state of the ego car at each cycle, we can directly control its speed or lane change rather than generating another curve to do it. Therefore, I eventually did not adopt the PTG approach, but used the simpler spline curve approach instead.
+
+The code was inspired by other code available on GitHub completed by previous students.
